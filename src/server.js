@@ -4,6 +4,7 @@ import pino from 'pino-http';
 
 
 import contactsRouter from './routers/contacts.js';
+import authRouter from './routers/auth.js';
 import { errorHandler } from './middlewares/errorHandler.js';
 import { notFoundHandler } from './middlewares/notFoundHandler.js';
 
@@ -16,6 +17,7 @@ export function setupServer() {
     app.use(express.json());
 
     app.use('/contacts', contactsRouter);
+    app.use('/auth', authRouter);
 
 
     app.use(notFoundHandler);

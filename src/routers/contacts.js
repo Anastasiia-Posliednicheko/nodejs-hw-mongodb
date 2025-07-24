@@ -1,12 +1,12 @@
-import express from 'express';
+import {Router} from 'express';
 import { getContactsController, getContactByIdController, createContactController, updateContactController, deleteContactController, } from '../controllers/contactsController.js';
 
 import { ctrlWrapper } from '../utils/ctrlWrapper.js';
 import { validateBody } from '../middlewares/validateBody.js';
 import { isValidId } from '../middlewares/isValidId.js';
-import { contactAddSchema, contactUpdateSchema, } from '../schemas/contactsSchemas.js';
+import { contactAddSchema, contactUpdateSchema, } from '../validation/contactsSchema.js';
 
-const router = express.Router();
+const router = Router();
 
 router.get('/', ctrlWrapper(getContactsController));
 
