@@ -12,7 +12,7 @@ const parseNumber = (value, defaultValue) => {
     return parsedNumber;
 };
 
-const keysOfContacts = ['name']; // дозволено сортувати тільки за ім’ям
+const keysOfContacts = ['name'];
 
 const parseSortBy = (value) => {
     return keysOfContacts.includes(value) ? value : 'name';
