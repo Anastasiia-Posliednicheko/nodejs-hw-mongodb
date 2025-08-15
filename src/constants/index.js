@@ -21,3 +21,4 @@ export const CLOUDINARY = {
 };
 export const TEMP_UPLOAD_DIR = path.join(process.cwd(), 'tmp');
 export const UPLOAD_DIR = path.join(process.cwd(), 'uploads');
+export const SWAGGER_PATH = path.join(process.cwd(), 'docs', 'swagger.json');
