@@ -56,7 +56,7 @@ responses:
                 data:
                   type: array
                   items:
-                    $ref: '../../../components/schemas/contact.yaml'
+                    $ref: '../../components/schemas/contact.yaml'
                 totalItems:
                   type: integer
                   example: 20
@@ -67,4 +67,4 @@ responses:
                   type: integer
                   example: 1
   '401':
-    $ref: '../../../components/responses/401.yaml'
+    $ref: '../../components/responses/401.yaml'

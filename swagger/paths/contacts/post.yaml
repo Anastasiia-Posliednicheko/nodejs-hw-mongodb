@@ -11,7 +11,7 @@ post:
     content:
       multipart/form-data:
         schema:
-          $ref: '../../../components/schemas/contact.yaml'
+          $ref: '../../components/schemas/contact.yaml'
   responses:
     '201':
       description: Successfully created a contact
@@ -31,6 +31,6 @@ post:
                 type: string
                 example: Successfully created a contact!
               data:
-                $ref: '../../../components/schemas/contact.yaml'
+                $ref: '../../components/schemas/contact.yaml'
     '401':
-      $ref: '../../../components/responses/401.yaml'
+      $ref: '../../components/responses/401.yaml'
