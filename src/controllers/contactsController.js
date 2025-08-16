@@ -11,8 +11,8 @@ export const getContactsController = async (req, res) => {
     const { type, isFavourite } = req.query;
 
     const [contacts, totalItems] = await Promise.all([
-        getPaginatedContacts({ skip, limit: perPage, sortBy, sortOrder, type, isFavourite }),
-        countAllContacts(type, isFavourite),
+        getPaginatedContacts({ skip, limit: perPage, sortBy, sortOrder, type, isFavourite, userId: req.user._id }),
+        countAllContacts(req.user._id, type, isFavourite),
     ]);
 
     const pagination = calculatePaginationData(totalItems, perPage, page);
@@ -32,7 +32,7 @@ export const getContactsController = async (req, res) => {
 
 export const getContactByIdController = async (req, res) => {
     const { contactId } = req.params;
-    const contact = await getContactById(contactId);
+    const contact = await getContactById(contactId, req.user._id);
     if (!contact)
         throw createError(404, 'Contact not found');
     res.status(200).json({
@@ -43,7 +43,7 @@ export const getContactByIdController = async (req, res) => {
 };
 
 export const createContactController = async (req, res) => {
-    const contact = await createContact(req.body);
+    const contact = await createContact(req.body, req.user._id);
     res.status(201).json({
         status: 201,
         message: 'Successfully created a contact!',
@@ -53,7 +53,7 @@ export const createContactController = async (req, res) => {
 
 export const updateContactController = async (req, res) => {
     const { contactId } = req.params;
-    const contact = await updateContact(contactId, req.body);
+    const contact = await updateContact(contactId, req.body, req.user._id);
     if (!contact)
         throw createError(404, 'Contact not found');
     res.status(200).json({
@@ -65,7 +65,7 @@ export const updateContactController = async (req, res) => {
 
 export const deleteContactController = async (req, res) => {
     const { contactId } = req.params;
-    const contact = await deleteContact(contactId);
+    const contact = await deleteContact(contactId, req.user._id);
 
     if (!contact) {
         throw createError(404, 'Contact not found');
