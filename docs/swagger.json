@@ -160,18 +160,58 @@
           }
         ],
         "requestBody": {
-          "required": true,
           "content": {
             "multipart/form-data": {
               "schema": {
-                "$ref": "#/components/schemas/contact"
+                "type": "object",
+                "required": [
+                  "name",
+                  "phoneNumber",
+                  "contactType"
+                ],
+                "properties": {
+                  "name": {
+                    "description": "Contact's name",
+                    "type": "string",
+                    "example": "John Doe"
+                  },
+                  "phoneNumber": {
+                    "description": "Contact's phone number",
+                    "type": "string",
+                    "example": "+380000000002"
+                  },
+                  "contactType": {
+                    "description": "Contact's type",
+                    "type": "string",
+                    "enum": [
+                      "work",
+                      "home",
+                      "personal"
+                    ]
+                  },
+                  "email": {
+                    "description": "Contact's email",
+                    "type": "string",
+                    "example": "user@example.com"
+                  },
+                  "isFavourite": {
+                    "description": "Contact's belonging to favourites",
+                    "type": "boolean",
+                    "example": true
+                  },
+                  "photo": {
+                    "description": "Contacts's photo",
+                    "type": "string",
+                    "format": "binary"
+                  }
+                }
               }
             }
           }
         },
         "responses": {
           "201": {
-            "description": "Successfully created a contact",
+            "description": "Creates a contact",
             "content": {
               "application/json": {
                 "schema": {
@@ -191,6 +231,7 @@
                       "example": "Successfully created a contact!"
                     },
                     "data": {
+                      "type": "object",
                       "$ref": "#/components/schemas/contact"
                     }
                   }
@@ -267,8 +308,8 @@
         "tags": [
           "Contacts"
         ],
-        "summary": "Update contact by id",
-        "operationId": "patchContact",
+        "summary": "Update contact",
+        "operationId": "updateContact",
         "description": "Update one or more fields of the contact",
         "security": [
           {
@@ -287,18 +328,53 @@
           }
         ],
         "requestBody": {
-          "required": true,
           "content": {
             "multipart/form-data": {
               "schema": {
-                "$ref": "#/components/schemas/contactUpdate"
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "description": "Contact's name",
+                    "type": "string",
+                    "example": "John Doe"
+                  },
+                  "phoneNumber": {
+                    "description": "Contact's phone number",
+                    "type": "string",
+                    "example": "+380000000002"
+                  },
+                  "contactType": {
+                    "description": "Contact's type",
+                    "type": "string",
+                    "enum": [
+                      "work",
+                      "home",
+                      "personal"
+                    ]
+                  },
+                  "email": {
+                    "description": "Contact's email",
+                    "type": "string",
+                    "example": "vasyl9@example.com"
+                  },
+                  "isFavourite": {
+                    "description": "Contact's belonging to favourites",
+                    "type": "boolean",
+                    "example": true
+                  },
+                  "photo": {
+                    "description": "Contacts's photo",
+                    "type": "string",
+                    "format": "binary"
+                  }
+                }
               }
             }
           }
         },
         "responses": {
           "200": {
-            "description": "Contact successfully updated",
+            "description": "Contact successfully updated!",
             "content": {
               "application/json": {
                 "schema": {
@@ -318,15 +394,13 @@
                       "example": "Successfully patched a contact!"
                     },
                     "data": {
+                      "type": "object",
                       "$ref": "#/components/schemas/contact"
                     }
                   }
                 }
               }
             }
-          },
-          "401": {
-            "$ref": "#/components/responses/401"
           },
           "404": {
             "$ref": "#/components/responses/404"
@@ -446,41 +520,6 @@
             "description": "When the contact was last updated",
             "type": "string",
             "format": "date-time"
-          }
-        }
-      },
-      "contactUpdate": {
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string",
-            "minLength": 3,
-            "maxLength": 20,
-            "example": "Jane Doe"
-          },
-          "email": {
-            "type": "string",
-            "format": "email",
-            "example": "jane@example.com"
-          },
-          "phoneNumber": {
-            "type": "string",
-            "minLength": 3,
-            "maxLength": 20,
-            "example": "+380991234567"
-          },
-          "isFavourite": {
-            "type": "boolean",
-            "example": true
-          },
-          "contactType": {
-            "type": "string",
-            "enum": [
-              "personal",
-              "home",
-              "work"
-            ],
-            "example": "home"
           }
         }
       }
