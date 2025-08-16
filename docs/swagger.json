@@ -166,8 +166,8 @@
                 "type": "object",
                 "required": [
                   "name",
-                  "phoneNumber",
-                  "contactType"
+                  "email",
+                  "phoneNumber"
                 ],
                 "properties": {
                   "name": {

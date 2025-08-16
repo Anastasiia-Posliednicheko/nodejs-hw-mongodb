@@ -12,8 +12,8 @@ requestBody:
         type: object
         required:
           - name
+          - email
           - phoneNumber
-          - contactType
         properties:
           name:
             description: "Contact's name"
