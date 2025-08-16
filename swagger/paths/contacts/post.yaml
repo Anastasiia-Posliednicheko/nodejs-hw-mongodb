@@ -1,36 +1,35 @@
-post:
-  tags:
-    - Contacts
-  summary: Create a new contact
-  operationId: createContact
-  description: Create a contact for the authorized user
-  security:
-    - bearerAuth: []
-  requestBody:
-    required: true
+tags:
+  - Contacts
+summary: Create a new contact
+operationId: createContact
+description: Create a contact for the authorized user
+security:
+  - bearerAuth: []
+requestBody:
+  required: true
+  content:
+    multipart/form-data:
+      schema:
+        $ref: '../../components/schemas/contact.yaml'
+responses:
+  '201':
+    description: Successfully created a contact
     content:
-      multipart/form-data:
+      application/json:
         schema:
-          $ref: '../../components/schemas/contact.yaml'
-  responses:
-    '201':
-      description: Successfully created a contact
-      content:
-        application/json:
-          schema:
-            type: object
-            required:
-              - status
-              - message
-              - data
-            properties:
-              status:
-                type: integer
-                example: 201
-              message:
-                type: string
-                example: Successfully created a contact!
-              data:
-                $ref: '../../components/schemas/contact.yaml'
-    '401':
-      $ref: '../../components/responses/401.yaml'
+          type: object
+          required:
+            - status
+            - message
+            - data
+          properties:
+            status:
+              type: integer
+              example: 201
+            message:
+              type: string
+              example: Successfully created a contact!
+            data:
+              $ref: '../../components/schemas/contact.yaml'
+  '401':
+    $ref: '../../components/responses/401.yaml'
