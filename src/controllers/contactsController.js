@@ -1,14 +1,34 @@
 import createError from 'http-errors';
-import { getAllContacts, getContactById, createContact, updateContact, deleteContact } from '../services/contacts.js';
+import { getAllContacts, getContactById, createContact, updateContact, deleteContact, countAllContacts, getPaginatedContacts } from '../services/contacts.js';
+import { parsePaginationParams } from '../utils/parsePaginationParams.js';
+import { calculatePaginationData } from '../utils/calculatePaginationData.js';
+
 
 export const getContactsController = async (req, res) => {
-    const contacts = await getAllContacts();
+    const { page, perPage, sortBy, sortOrder } = parsePaginationParams(req.query);
+    const skip = (page - 1) * perPage;
+
+    const { type, isFavourite } = req.query;
+
+    const [contacts, totalItems] = await Promise.all([
+        getPaginatedContacts({ skip, limit: perPage, sortBy, sortOrder, type, isFavourite }),
+        countAllContacts(type, isFavourite),
+    ]);
+
+    const pagination = calculatePaginationData(totalItems, perPage, page);
+
     res.status(200).json({
         status: 200,
         message: 'Successfully found contacts!',
-        data: contacts
+        data: {
+            data: contacts,
+            ...pagination,
+        },
     });
 };
+
+
+
 
 export const getContactByIdController = async (req, res) => {
     const { contactId } = req.params;
